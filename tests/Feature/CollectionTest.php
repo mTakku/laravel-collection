@@ -51,5 +51,21 @@ class CollectionTest extends TestCase
         $this->assertEquals([new Person("Farel")], $result->all());
     }
 
+    public function testMapSpread()
+    {
+        $collection = collect([
+            ["Farel", "Mercys"],
+            ["Vestia", "Zeta"]
+        ]);
 
+        $result = $collection->mapSpread(function ($firstName, $lastName) {
+            $fullName = $firstName . ' ' . $lastName;
+            return new Person($fullName);
+        });
+
+        $this->assertEquals([
+            new Person("Farel Mercys"),
+            new Person("Vestia Zeta"),
+        ], $result->all());
+    }
 }
