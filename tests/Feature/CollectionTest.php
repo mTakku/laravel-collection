@@ -144,4 +144,24 @@ class CollectionTest extends TestCase
         $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6, 7, 8, 9], $result->all());
 
     }
+
+    public function testFlatMap()
+    {
+        $collection = collect([
+            [
+                "name" => "Farel",
+                "hobbies" => ["Coding", "Gaming"]
+            ],
+            [
+                "name" => "Zeta",
+                "hobbies" => ["Reading", "Writing"]
+            ],
+        ]);
+        $result = $collection->flatMap(function ($item) {
+            $hobbies = $item["hobbies"];
+            return $hobbies;
+        });
+
+        $this->assertEqualsCanonicalizing(["Coding", "Gaming", "Reading", "Writing"], $result->all());
+    }
 }
