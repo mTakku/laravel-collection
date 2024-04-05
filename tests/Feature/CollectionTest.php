@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use App\Data\Person;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\LazyCollection;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertEquals;
+
 
 class CollectionTest extends TestCase
 {
@@ -236,4 +239,47 @@ class CollectionTest extends TestCase
         }));
     }
 
+    public function testGrouping()
+    {
+        $collection = collect([
+            [
+                "name" => "Farel",
+                "department" => "IT"
+            ],
+            [
+                "name" => "Zeta",
+                "department" => "IT"
+            ],
+            [
+                "name" => "Takku",
+                "department" => "HR"
+            ]
+        ]);
+
+        $result = $collection->groupBy("department");
+
+        assertEquals([
+            "IT" => collect([
+                [
+                    "name" => "Farel",
+                    "department" => "IT"
+                ],
+                [
+                    "name" => "Zeta",
+                    "department" => "IT"
+                ]
+            ]),
+            "HR" => collect([
+                [
+                    "name" => "Takku",
+                    "department" => "HR"
+                ]
+            ])
+        ], $result->all());
+
+        $result = $collection->groupBy(function ($value, $key) {
+            return strtolower($value["department"]);
+        });
+    }
 }
+
