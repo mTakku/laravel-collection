@@ -22,4 +22,16 @@ class CollectionTest extends TestCase
         }
     }
 
+    public function testCrud()
+    {
+        $collection = collect([]);
+        $collection->push(1, 2, 3);
+        $this->assertEqualsCanonicalizing([1, 2, 3], $collection->all());
+
+        $result = $collection->pop();
+        $this->assertEquals(3, $result);
+        $this->assertEqualsCanonicalizing([1, 2], $collection->all());
+    }
+
+
 }
