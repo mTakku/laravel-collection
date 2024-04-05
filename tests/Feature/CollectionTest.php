@@ -120,4 +120,16 @@ class CollectionTest extends TestCase
 
         $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6], $collection3->all());
     }
+
+    public function testCombine()
+    {
+        $collection1 = collect(["name", "country"]);
+        $collection2 = collect(["Farel", "Indonesia"]);
+        $collection3 = $collection1->combine($collection2);
+
+        $this->assertEqualsCanonicalizing([
+            "name" => "Farel",
+            "country" => "Indonesia"
+        ], $collection3->all());
+    }
 }
