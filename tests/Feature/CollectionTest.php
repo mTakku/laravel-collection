@@ -204,4 +204,26 @@ class CollectionTest extends TestCase
         $this->assertEqualsCanonicalizing([2, 4, 6, 8, 10], $result->all());
 
     }
+
+    public function testPartition()
+    {
+        $collection = collect([
+            "Farel" => 100,
+            "Zeta" => 80,
+            "Takku" => 90
+        ]);
+
+        [$result1, $result2] = $collection->partition(function ($value, $key) {
+            return $value >= 90;
+        });
+
+        $this->assertEquals([
+            "Farel" => 100,
+            "Takku" => 90
+        ], $result1->all());
+        $this->assertEquals([
+            "Zeta" => 80
+        ], $result2->all());
+
+    }
 }
