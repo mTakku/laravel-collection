@@ -68,4 +68,34 @@ class CollectionTest extends TestCase
             new Person("Vestia Zeta"),
         ], $result->all());
     }
+
+    public function testMapToGroups()
+    {
+        $collection = collect([
+            [
+                "name" => "Farel",
+                "department" => "IT"
+            ],
+            [
+                "name" => "Zeta",
+                "department" => "IT"
+            ],
+            [
+                "name" => "Takku",
+                "department" => "HR"
+            ]
+        ]);
+
+        $result = $collection->mapToGroups(function ($person) {
+            return [
+                $person["department"] => $person["name"]
+            ];
+        });
+
+        $this->assertEquals([
+            "IT" => collect(["Farel", "Zeta"]),
+            "HR" => collect(["Takku"])
+        ], $result->all());
+
+    }
 }
