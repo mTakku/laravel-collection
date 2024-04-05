@@ -174,4 +174,23 @@ class CollectionTest extends TestCase
         $this->assertEquals("Farel, Mercys and Zeta", $collection->join(", ", " and "));
 
     }
+
+    public function testFilter()
+    {
+        $collection = collect([
+            "Farel" => 100,
+            "Zeta" => 80,
+            "Takku" => 90
+        ]);
+
+        $result = $collection->filter(function ($value, $key) {
+            return $value >= 90;
+        });
+
+        $this->assertEquals([
+            "Farel" => 100,
+            "Takku" => 90
+        ], $result->all());
+
+    }
 }
