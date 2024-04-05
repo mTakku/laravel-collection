@@ -33,5 +33,15 @@ class CollectionTest extends TestCase
         $this->assertEqualsCanonicalizing([1, 2], $collection->all());
     }
 
+    public function testMap()
+    {
+        $collection = collect([1, 2, 3]);
+        $result = $collection->map(function ($item) {
+            return $item * 2;
+        });
+        $this->assertEqualsCanonicalizing([2, 4, 6], $result->all());
+
+    }
+
 
 }
