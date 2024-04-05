@@ -293,5 +293,23 @@ class CollectionTest extends TestCase
         $this->assertEqualsCanonicalizing([4, 5], $result->all());
 
     }
+
+    public function testTake()
+    {
+        $collection = collect([1, 2, 3, 1, 2, 3, 1, 2, 3]);
+
+        $result = $collection->take(3);
+        $this->assertEqualsCanonicalizing([1, 2, 3], $result->all());
+
+        $result = $collection->takeUntil(function ($value, $key) {
+            return $value == 3;
+        });
+        $this->assertEqualsCanonicalizing([1, 2], $result->all());
+
+        $result = $collection->takeWhile(function ($value, $key) {
+            return $value < 3;
+        });
+        $this->assertEqualsCanonicalizing([1, 2], $result->all());
+    }
 }
 
