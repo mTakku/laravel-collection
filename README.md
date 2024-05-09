@@ -11,195 +11,116 @@
 >   Composer Create-project laravel\laravel=v10.0.3 laravel-collection
 >   ```
 ---
-> #### APA ITU COLLECTION?
-> - Collection adalah salah satu fitur dari framework Laravel yang berguna untuk memanipulasi data dengan kejelasan dan efesiensi.
->
-> Berikut kode membuat collection :
-> ```
->  $collection = collect([1, 2, 3]);
->  $this->assertEqualsCanonicalizing([1, 2, 3], $collection->all());
-> ```
-> #### FOREACH
-> - forEach dalam Laravel Collection adalah metode untuk melakukan iterasi pada setiap item dalam koleksi data tanpa mengubah koleksi itu sendiri. Ini memungkinkan Anda untuk menjalankan fungsi pada setiap elemen dalam koleksi dengan gaya sintaks yang bersih dan mudah dibaca.
->
-> berikut kode membuat collection :
-> Berikut contoh foreach pada laravel collection :
->
-> ```
-> $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-> foreach ($collection as $key => $value) {
->     $this->assertEquals($key + 1, $value);
-> }
-> ```
->
-> #### MANIPULASI COLLECTION
-> - Manipulasi Collection dalam Laravel Collection adalah proses menggunakan metode bawaan seperti filter, map, sortBy, dan lainnya untuk mengubah, menyaring, atau mengurutkan data dalam koleksi dengan cara yang jelas dan efisien.
->
-> Berikut contoh kode manipulasi collection :
-> ```
-> $collection = collect([]);
-> $collection->push(1, 2, 3);
-> $this->assertEqualsCanonicalizing([1, 2, 3], $collection->all());
->
-> $result = $collection->pop();
-> $this->assertEquals(3, $result);
-> $this->assertEqualsCanonicalizing([1, 2], $collection->all());
-> ```
->
-> #### MAPPING
-> - Mapping dalam Laravel Collection adalah proses mengubah setiap elemen dalam koleksi dengan menggunakan fungsi tertentu dan mengembalikan koleksi baru yang berisi hasil transformasi tersebut.
-> - Dengan ```map()```, Anda dapat menerapkan fungsi pada setiap item dalam koleksi dan menghasilkan koleksi baru dengan nilai-nilai yang telah dimodifikasi sesuai dengan fungsi tersebut.
->
-> Berikut salah satu contoh kode mapping :
-> ```
-> $collection = collect([1, 2, 3]);
-> $result = $collection->map(function ($item) {
->     return $item * 2;
-> });
-> $this->assertEqualsCanonicalizing([2, 4, 6], $result->all());
-> ```
-> #### ZIPPING
-> - Zipping dalam Laravel Collection adalah proses menggabungkan dua koleksi secara sejajar, membentuk pasangan nilai dari setiap koleksi untuk membuat koleksi baru. Ini dilakukan dengan metode ```zip()```.
->
-> Berikut contoh kode zipping :
->
-> ```
-> $collection1 = collect([1, 2, 3]);
-> $collection2 = collect([4, 5, 6]);
-> $collection3 = $collection1->zip($collection2);
->
-> $this->assertEquals([
-> collect([1, 4]),
-> collect([2, 5]),
-> collect([3, 6]),
-> ], $collection3->all());
-> ```
+> #### APA ITU VALIDATION
+> - validasi di Laravel adalah proses memastikan data yang dimasukkan ke dalam aplikasi web Anda aman dan sesuai dengan yang diharapkan.
+> #### manfaat
+> - Meningkatkan keamanan aplikasi
+> - Memastikan data yang konsisten
+> - Mempermudah pengembangan aplikasi
+> - Menampilkan pesan error yang informatif
 ---
-> #### CONCAT
-> - Concat Menggabungkan dua atau lebih data yang berupa string.
->
-> Berikut contoh kode concat :
+> #### VALIDATOR
+> - `Validator` dalam Laravel adalah kelas yang digunakan untuk memvalidasi data. Dengan `Validator`, Anda bisa menentukan aturan validasi, seperti memastikan bahwa input adalah string, panjangnya tidak melebihi batas tertentu, atau memenuhi format email.
+> - contoh sintaksnya :
 > ```
-> $collection1 = collect([1, 2, 3]);
-> $collection2 = collect([4, 5, 6]);
-> $collection3 = $collection1->concat($collection2);
+> $validator = Validator::make($data, $rules);
 >
-> $this->assertEqualsCanonicalizing([1, 2, 3, 4, 5, 6], $collection3->all());
-> ```
-> #### STRING REPRESENTATION
-> - String Representation dalam Laravel Collection adalah cara di mana koleksi ditampilkan sebagai string. Biasanya, elemen-elemen koleksi dipisahkan oleh koma dan diapit oleh tanda kurung kotak. Misalnya, koleksi ```[1, 2, 3]``` akan direpresentasikan sebagai ```"[1, 2, 3]"```. Ini berguna untuk debugging dan pencetakan.
->
-> #### FILTERING
-> - Filtering dalam Laravel Collection adalah proses memilih elemen-elemen tertentu dari koleksi berdasarkan kriteria yang ditentukan. Misalnya, Anda dapat menyaring elemen-elemen yang memenuhi kondisi tertentu, seperti elemen-elemen dengan nilai lebih besar dari suatu angka.
->
-> Berikut contoh salah satu kode filtering :
-> ```
-> $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-> $result = $collection->filter(function ($value, $key) {
-> return $value % 2 == 0;
-> });
->
-> $this->assertEqualsCanonicalizing([2, 4, 6, 8, 10], $result->all());
-> ```
->
-> #### PARTITIONING
-> - Partitioning dalam Laravel Collection adalah proses membagi koleksi menjadi dua kelompok berdasarkan kriteria tertentu. Misalnya, Anda dapat membagi koleksi menjadi kelompok elemen yang memenuhi kondisi tertentu dan kelompok lainnya yang tidak memenuhi kondisi tersebut.
->
-> Berikut contoh kode partitioning :
-> ```
-> $collection = collect([
->     "Farel" => 100,
->     "Zeta" => 80,
->     "Takku" => 90
->  ]);
->
-> [$result1, $result2] = $collection->partition(function ($value, $key) {
->     return $value >= 90;
-> });
-> ```
->
-> #### TESTING
-> - Testing dalam pengembangan perangkat lunak adalah proses untuk memverifikasi bahwa kode berfungsi seperti yang diharapkan
->
-> Berikut contoh kode testing :
-> ```
-> $collection = collect(["Farel", "Mercys", "Thona"]);
-> $this->assertTrue($collection->contains("Farel"));
-> $this->assertTrue($collection->contains(function ($value, $key) {
->     return $value == "Thona";
-> }));
-> ```
->
-> #### GROUPING
-> - Grouping dalam Laravel Collection adalah proses mengelompokkan elemen-elemen koleksi berdasarkan kriteria tertentu, seperti properti atau hasil dari sebuah closure.
->
-> Berikut contoh kode grouping :
-> ```
-> $collection = collect([
->     [
->         "name" => "Farel",
->         "department" => "IT"
->     ],
->     [
->         "name" => "Zeta",
->         "department" => "IT"
->     ],
->     [
->         "name" => "Takku",
->         "department" => "HR"
->     ]
-> ]);
->
-> $result = $collection->groupBy("department");
-> ```
->
-> #### AGGREGATE
-> - Aggregation dalam Laravel Collection adalah proses pengumpulan atau perhitungan nilai-nilai dalam koleksi. Ini dapat dilakukan dengan metode-metode seperti sum(), avg(), max(), min(), dan count(), yang memungkinkan Anda untuk melakukan operasi agregasi dengan mudah.
->
-> Berikut contoh kode aggregate :
-> ```
-> $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-> $result = $collection->sum();
-> $this->assertEquals(45, $result);
->
-> $result = $collection->avg();
-> $this->assertEquals(5, $result);
->
-> $result = $collection->min();
-> $this->assertEquals(1, $result);
->
-> $result = $collection->max();
-> $this->assertEquals(9, $result);
-> ```
->
-> #### REDUCE
-> - Metode reduce() dalam Laravel Collection digunakan untuk mereduksi koleksi menjadi satu nilai tunggal berdasarkan operasi yang ditentukan dalam fungsi callback. Dengan reduce(), Anda dapat melakukan operasi seperti menjumlahkan semua nilai atau menggabungkan string dalam koleksi.
->
-> Berikut contoh kode reduce :
-> ```
-> $collection = collect([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-> $result = $collection->reduce(function ($carry, $item) {
->     return $carry + $item;
-> });
-> $this->assertEquals(45, $result);
-> ```
->
-> #### LAZY COLLECTION
-> - Lazy Collection dalam Laravel adalah koleksi yang dievaluasi hanya saat dibutuhkan, tidak sekaligus. Ini membantu meningkatkan kinerja dengan menghindari evaluasi seluruh koleksi pada satu waktu.
->
-> Berikut contoh kode lazy collection :
-> ```
-> $collection = LazyCollection::make(function () {
-> $value = 0;
->
-> while (true) {
->     yield $value;
->     $value++;
+> if ($validator->fails()) {
+>    // Tangani kesalahan jika validasi gagal
+> } else {
+>    // Lakukan tindakan jika validasi berhasil
 > }
-> });
+> ```
+> -Dalam contoh ini, `$data` adalah data yang ingin divalidasi, dan $rules adalah aturan validasi yang ditentukan. Jika validasi gagal, Anda bisa menangani kesalahan tersebut; jika tidak, 
+---
+> #### ERROR MESSAGE
+> - Error Message dalam Laravel adalah pesan yang memberi tahu pengguna tentang kesalahan dalam input yang mereka berikan. Ini muncul ketika validasi data gagal, membantu pengguna memahami masalahnya. Misalnya, "Email harus berupa alamat email yang valid." pesan kesalahan memberi tahu pengguna bahwa mereka harus memasukkan alamat email yang benar.
+---
+> #### VALIDATION EXCEPTION
+> - `ValidationException` dalam Laravel adalah pengecualian yang dilemparkan ketika validasi data gagal. Ketika Anda memvalidasi data dan ada kesalahan, Laravel secara otomatis melemparkan pengecualian ini. Anda dapat menangkapnya dalam kontroler atau bagian lain dari kode Anda untuk menangani kesalahan validasi dan memberikan respons yang sesuai kepada pengguna.
+> - contoh sintaksnya:
+>```
+>use Illuminate\Validation\ValidationException;
 >
-> $result = $collection->take(10);
-> $this->assertEqualsCanonicalizing([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], $result->all()); 
+>try {
+>    // Lakukan validasi data di sini
+>} catch (ValidationException $e) {
+>    // Tangani pengecualian validasi di sini
+>    $errors = $e->validator->errors()->all();
+>    return response()->json(['errors' => $errors], 422);
+>}
+>```
+> - Dalam blok `catch`, kita menangkap `ValidationException` dan kemudian dapat melakukan apa pun yang diperlukan, seperti mengambil pesan kesalahan validasi dari objek validator dan mengembalikannya kepada
+pengguna dalam bentuk yang sesuai. Hal ini memungkinkan aplikasi Anda untuk memberikan umpan balik yang tepat kepada pengguna ketika terjadi kesalahan validasi.
+---
+> #### VALIDATION RULES
+> - Aturan validasi dalam Laravel adalah kumpulan aturan yang digunakan untuk memeriksa data yang dimasukkan oleh pengguna. Ini termasuk memastikan data tidak kosong (`required`), adalah alamat email yang valid (`email`), merupakan bilangan (`numeric`), dll. Anda bisa menggunakan aturan ini untuk memvalidasi input dengan cepat dan tepat.
+---
+> #### VALID DATA
+> - Data yang valid adalah data yang sesuai dengan aturan validasi yang telah ditetapkan. Dalam konteks Laravel, ini berarti data yang memenuhi semua aturan validasi yang telah didefinisikan, seperti tidak kosong (required), memiliki format yang benar (misalnya, alamat email yang valid), atau memenuhi batasan tertentu (misalnya, panjang string minimum). Jadi, data yang valid adalah data yang lolos semua pengujian validasi yang telah ditetapkan untuk itu.
+---
+> #### VALIDATION MESSAGE
+> - Validation Message adalah pesan yang memberitahu pengguna tentang kesalahan yang terjadi saat validasi data. Ketika data yang dimasukkan pengguna tidak memenuhi aturan validasi yang telah ditetapkan, pesan validasi memberikan informasi tentang kesalahan tersebut. Pesan ini membantu pengguna memahami masalahnya dan dapat membimbing mereka untuk memperbaiki input mereka. Pesan validasi yang baik biasanya jelas dan informatif, memberikan petunjuk yang berguna kepada pengguna tentang apa yang salah dengan data yang mereka masukkan.
+---
+> #### ADDTIONAL VALIDATION
+> - Validasi tambahan adalah langkah-langkah validasi ekstra yang Anda terapkan untuk memeriksa data lebih lanjut setelah validasi standar. Ini bisa termasuk pengujian spesifik untuk kasus penggunaan tertentu atau memverifikasi data melawan layanan eksternal. Validasi tambahan membantu memastikan bahwa data yang dimasukkan memenuhi persyaratan lebih lanjut sesuai dengan kebutuhan aplikasi Anda.
+---
+> #### CUSTOM RULE
+> - Anda bisa membuat aturan validasi kustom dengan Laravel. Berikut langkahnya:
+>> 1. Gunakan perintah artisan untuk membuat aturan baru:
+>>```
+>>php artisan make:rule CustomRule
+>>```
+>> 2. Di dalam file yang baru dibuat (CustomRule.php), tentukan logika validasi di dalam metode `passes`.
+>>```
+>>public function passes($attribute, $value)
+>>{
+>>    // Logika validasi Anda di sini
+>>}
+>>```
+>> 3. Definisikan pesan kesalahan dalam metode `message`.
+>> ```
+>> public function message()
+>>{
+>>    return 'Pesan kesalahan kustom Anda di sini.';
+>>}
+>> ```
+>>  4. Gunakan aturan validasi kustom Anda dalam validasi Anda seperti aturan validasi bawaan lainnya.
+>> ```
+>> $request->validate([
+>>    'field' => ['required', new CustomRule],
+>>]);
+>>```
+---
+> #### RULE CLASSES
+> - Rule classes dalam Laravel adalah kelas yang menerapkan aturan validasi khusus. Dengan membuat rule class, Anda bisa memisahkan logika validasi dari kontroler, meningkatkan keterbacaan kode. Langkahnya: buat rule class, tentukan logika validasi dalam metode `passes`, definisikan pesan kesalahan dalam metode `message`, lalu gunakan rule class tersebut dalam validasi seperti aturan bawaan.
+---
+> #### NESTED ARRAY VALIDATION
+> - Anda bisa memvalidasi array bersarang dalam Laravel dengan menggunakan sintaks seperti ini:
+> ```
+> $request->validate([
+>    'users.*.name' => 'required|string',
+>    'users.*.email' => 'required|email',
+>    'users.*.age' => 'required|integer|min:18',
+>]);
+>```
+> - Dalam contoh ini, kita memvalidasi setiap elemen dalam array `users`, memastikan bahwa setiap pengguna memiliki nama, email, dan usia yang sesuai dengan aturan validasi yang ditetapkan.
+---
+> #### HTTP REQUEST VALIDATION
+> - Validasi permintaan HTTP dalam Laravel memungkinkan Anda untuk memverifikasi data yang dikirim oleh pengguna melalui permintaan HTTP, seperti formulir web atau permintaan API.
+>> 1. Berikut salah satu contoh request validation :
+>> ```
+>> public function rules()
+>>{
+>>    return [
+>>        'title' => 'required|string|max:255',
+>>        'content' => 'required|string',
+>>        'tags' => 'nullable|array',
+>>        'tags.*' => 'string|max:50',
+>>    ];
+>> }
+>> ```
+---
 <p align="center" >
   <b>PERTANYAAN DAN CATATAN TAMBAHAN</b>
 </p>
